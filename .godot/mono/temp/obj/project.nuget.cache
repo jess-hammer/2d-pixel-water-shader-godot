@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "2GnR4KAiiq3kfxxvyJtdZMYcjyqURlUhmQ+nreQ+Bn/Yiph62N3/F7s9YmryP/tPI8296PmhPjBVfDMI7oARHg==",
+  "success": true,
+  "projectFilePath": "/Users/jessicahammer/Documents/GitHub/pixel-water-shader-godot/Water and water trail shader.csproj",
+  "expectedPackageFiles": [
+    "/Users/jessicahammer/.nuget/packages/godot.sourcegenerators/4.1.2/godot.sourcegenerators.4.1.2.nupkg.sha512",
+    "/Users/jessicahammer/.nuget/packages/godotsharp/4.1.2/godotsharp.4.1.2.nupkg.sha512",
+    "/Users/jessicahammer/.nuget/packages/godotsharpeditor/4.1.2/godotsharpeditor.4.1.2.nupkg.sha512"
+  ],
+  "logs": []
+}

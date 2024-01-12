@@ -1,0 +1,34 @@
+[gd_resource type="ShaderMaterial" load_steps=5 format=3 uid="uid://cgjocunkt7lim"]
+
+[ext_resource type="Shader" uid="uid://c25wx8oihvkgw" path="res://Assets/Tiles/Water/WaterShader.tres" id="1_qm0vv"]
+[ext_resource type="Texture2D" uid="uid://b15stxfa0h0ie" path="res://Assets/Tiles/Water/CausticTextureHighlights.png" id="2_ddldc"]
+[ext_resource type="Texture2D" uid="uid://ovc8ns3358f1" path="res://Assets/Tiles/Water/CausticTexture.png" id="3_qtw1d"]
+[ext_resource type="Texture2D" uid="uid://bat73uw07udlq" path="res://Assets/NoiseTextures/noiseTexture-6.png" id="4_udfve"]
+
+[resource]
+shader = ExtResource("1_qm0vv")
+shader_parameter/WaterColour = Color(0.372549, 0.54902, 0.768627, 0.796078)
+shader_parameter/CausticTextureScale = 0.0055
+shader_parameter/CausticMovementScale = 25.0
+shader_parameter/CausticMovementSpeed = 0.9
+shader_parameter/CausticMovementStrength = 0.035
+shader_parameter/CausticColour = Color(0.5984, 0.88, 0.88, 0.431373)
+shader_parameter/CausticHighlightColour = Color(1, 1, 1, 1)
+shader_parameter/NoiseScale = 0.02
+shader_parameter/NoiseModulateSpeed = 0.5
+shader_parameter/NoiseStrength = 0.5
+shader_parameter/SpecularNoiseMovementStrength = 100.0
+shader_parameter/SpecularSpeed = 4.0
+shader_parameter/SpecularScale1 = 0.07
+shader_parameter/SpecularScale2 = 0.4
+shader_parameter/SpecularThreshold = -0.5
+shader_parameter/SpecularColour = Color(1, 1, 1, 0.843137)
+shader_parameter/FoamColour = Color(1, 1, 1, 1)
+shader_parameter/WaveSpeed = 5.0
+shader_parameter/FoamNoiseScale = 8e-06
+shader_parameter/FoamNoiseAmount = 0.8
+shader_parameter/FoamFrequency = 32.0
+shader_parameter/FoamQuantizeAmount = 3.5
+shader_parameter/CausticTexture = ExtResource("3_qtw1d")
+shader_parameter/CausticHighlightTexture = ExtResource("2_ddldc")
+shader_parameter/FoamNoiseTexture = ExtResource("4_udfve")

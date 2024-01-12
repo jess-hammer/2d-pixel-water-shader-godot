@@ -1,0 +1,6 @@
+res://MainScene.tscn
+res://Assets/Tiles/Water/WaterTileSet.tres
+res://Assets/Tiles/Water/WaterShader.tres
+res://Assets/Shaders/RippleShader.tres
+res://Scripts/FollowCursor.cs
+res://Scripts/Trails.cs
