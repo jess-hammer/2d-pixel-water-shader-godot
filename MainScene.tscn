@@ -1,13 +1,13 @@
 [gd_scene load_steps=12 format=3 uid="uid://bjjrktu023gxh"]
 
-[ext_resource type="TileSet" uid="uid://b5p22y37tdyep" path="res://Assets/Tiles/Water/WaterTileSet.tres" id="1_1qui1"]
-[ext_resource type="Material" uid="uid://cgjocunkt7lim" path="res://Assets/Tiles/Water/WaterMaterial.tres" id="1_cf1t6"]
+[ext_resource type="TileSet" uid="uid://b5p22y37tdyep" path="res://Assets/Water/WaterTileSet.tres" id="1_1qui1"]
+[ext_resource type="Material" uid="uid://cgjocunkt7lim" path="res://Assets/Water/WaterMaterial.tres" id="1_cf1t6"]
 [ext_resource type="Texture2D" uid="uid://dhelerfvlh47f" path="res://Assets/Grass texture.png" id="1_k7i4q"]
-[ext_resource type="Script" path="res://Scripts/FollowCursor.cs" id="4_qxml0"]
-[ext_resource type="Script" path="res://Scripts/Trails.cs" id="5_rwrmh"]
-[ext_resource type="Material" uid="uid://tj1entgdpoef" path="res://Assets/Shaders/WaterTrailSpriteMaterial.tres" id="5_vykh5"]
-[ext_resource type="Texture2D" uid="uid://bkmtl116unb3p" path="res://Assets/Shaders/WaterTrailGradient.png" id="5_wj72j"]
-[ext_resource type="Texture2D" uid="uid://2lul8k14hwv5" path="res://Assets/Shaders/CircleBlur64x64.png" id="6_vqg40"]
+[ext_resource type="Script" uid="uid://cuqojdsbyy7nb" path="res://Scripts/FollowCursor.cs" id="4_qxml0"]
+[ext_resource type="Script" uid="uid://bmm8hfy7rn48c" path="res://Scripts/Trails.cs" id="5_rwrmh"]
+[ext_resource type="Material" uid="uid://tj1entgdpoef" path="res://Assets/WaterTrail/WaterTrailSpriteMaterial.tres" id="5_vykh5"]
+[ext_resource type="Texture2D" uid="uid://bkmtl116unb3p" path="res://Assets/WaterTrail/WaterTrailGradient.png" id="5_wj72j"]
+[ext_resource type="Texture2D" uid="uid://2lul8k14hwv5" path="res://Assets/WaterTrail/CircleBlur64x64.png" id="6_vqg40"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_ustwy"]
 viewport_path = NodePath("WaterTrail/SubViewport")

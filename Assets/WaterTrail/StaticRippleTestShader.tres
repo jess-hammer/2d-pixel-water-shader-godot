@@ -1,0 +1,406 @@
+[gd_resource type="VisualShader" load_steps=28 format=3 uid="uid://dorrua8bwtqqu"]
+
+[ext_resource type="Script" uid="uid://fx1hgwfevu" path="res://Assets/WaterTrail/VisualShaderNodePerlinNoise3D.gd" id="1_if2yf"]
+[ext_resource type="Script" uid="uid://dfefhb4yka4vs" path="res://Assets/WaterTrail/VisualShaderNodePixelize.gd" id="1_ydje6"]
+
+[sub_resource type="VisualShaderNodeVec2Constant" id="VisualShaderNodeVec2Constant_r4uvb"]
+
+[sub_resource type="VisualShaderNodeFloatConstant" id="VisualShaderNodeFloatConstant_jr1wa"]
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_8lv5q"]
+output_port_for_preview = 0
+operator = 2
+
+[sub_resource type="VisualShaderNodeMix" id="VisualShaderNodeMix_2duj4"]
+output_port_for_preview = 0
+default_input_values = [0, Vector2(0, 0), 1, Vector2(1, 1), 2, Vector2(0.5, 0.5)]
+op_type = 1
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_x3yun"]
+parameter_name = "NoiseMixAmount"
+default_value_enabled = true
+default_value = 0.8
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_8jmxx"]
+parameter_name = "NoiseScale"
+default_value_enabled = true
+default_value = 8.0
+
+[sub_resource type="VisualShaderNodeRemap" id="VisualShaderNodeRemap_gpakl"]
+output_port_for_preview = 0
+default_input_values = [1, 0.0, 2, 1.0, 3, -0.4, 4, 2.0]
+
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_jv06d"]
+default_input_values = [0, Vector2(0, 0), 1, Vector2(0, 0)]
+op_type = 0
+operator = 2
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_a26op"]
+input_name = "uv"
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_dfky5"]
+input_name = "color"
+
+[sub_resource type="VisualShaderNodeVectorDecompose" id="VisualShaderNodeVectorDecompose_5qeuv"]
+default_input_values = [0, Quaternion(0, 0, 0, 0)]
+op_type = 2
+
+[sub_resource type="VisualShaderNodeCustom" id="VisualShaderNodeCustom_ootba"]
+default_input_values = [1, 32.0]
+initialized = true
+script = ExtResource("1_ydje6")
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_lydcw"]
+output_port_for_preview = 0
+default_input_values = [0, 0.0, 1, 3.0]
+operator = 2
+
+[sub_resource type="VisualShaderNodeFloatFunc" id="VisualShaderNodeFloatFunc_fogn5"]
+output_port_for_preview = 0
+function = 14
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_g8cnj"]
+output_port_for_preview = 0
+default_input_values = [0, 0.0, 1, 3.0]
+operator = 3
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_gni3w"]
+parameter_name = "CircleStrength"
+default_value_enabled = true
+default_value = 1.7
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_mn17t"]
+parameter_name = "FloatParameter"
+default_value_enabled = true
+default_value = 5.0
+
+[sub_resource type="VisualShaderNodeMultiplyAdd" id="VisualShaderNodeMultiplyAdd_17fxa"]
+default_input_values = [0, Vector2(0, 0), 1, Vector2(1, 1.2), 2, Vector2(-4.52514e-12, -0.1)]
+op_type = 1
+
+[sub_resource type="VisualShaderNodeVectorDistance" id="VisualShaderNodeVectorDistance_uii86"]
+output_port_for_preview = 0
+default_input_values = [0, Vector2(0, 0), 1, Vector2(0.5, 0.5)]
+op_type = 0
+
+[sub_resource type="VisualShaderNodeFloatFunc" id="VisualShaderNodeFloatFunc_cnepk"]
+output_port_for_preview = 0
+function = 31
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_xhf6l"]
+output_port_for_preview = 0
+default_input_values = [0, 0.0, 1, 1.2]
+operator = 2
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_gl8s8"]
+input_name = "time"
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_m07s6"]
+default_input_values = [0, 0.0, 1, 4.0]
+operator = 3
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_oyh0s"]
+output_port_for_preview = 0
+
+[sub_resource type="VisualShaderNodeCustom" id="VisualShaderNodeCustom_yrlgu"]
+default_input_values = [2, 4.0]
+initialized = true
+script = ExtResource("1_if2yf")
+
+[resource]
+code = "shader_type canvas_item;
+render_mode blend_mix;
+
+uniform float CircleStrength = 1.70000004768372;
+uniform float FloatParameter = 5;
+uniform float NoiseMixAmount = 0.80000001192093;
+uniform float NoiseScale = 8;
+
+
+// Pixelize
+
+		float floatPixelate(float f, float amount) {
+			return floor(f * amount) / amount;
+		}
+
+		vec2 pixelate(vec2 P, float amount) {
+			return vec2(floatPixelate(P.x, amount), floatPixelate(P.y, amount));
+		}
+	
+// PerlinNoise3D
+
+		vec3 mod289_3(vec3 x) {
+			return x - floor(x * (1.0 / 289.0)) * 289.0;
+		}
+
+		vec4 mod289_4(vec4 x) {
+			return x - floor(x * (1.0 / 289.0)) * 289.0;
+		}
+
+		vec4 permute(vec4 x) {
+			return mod289_4(((x * 34.0) + 1.0) * x);
+		}
+
+		vec4 taylorInvSqrt(vec4 r) {
+			return 1.79284291400159 - 0.85373472095314 * r;
+		}
+
+		vec3 fade(vec3 t) {
+			return t * t * t * (t * (t * 6.0 - 15.0) + 10.0);
+		}
+
+		// Classic Perlin noise.
+		float cnoise(vec3 P) {
+			vec3 Pi0 = floor(P); // Integer part for indexing.
+			vec3 Pi1 = Pi0 + vec3(1.0); // Integer part + 1.
+			Pi0 = mod289_3(Pi0);
+			Pi1 = mod289_3(Pi1);
+			vec3 Pf0 = fract(P); // Fractional part for interpolation.
+			vec3 Pf1 = Pf0 - vec3(1.0); // Fractional part - 1.0.
+			vec4 ix = vec4(Pi0.x, Pi1.x, Pi0.x, Pi1.x);
+			vec4 iy = vec4(Pi0.yy, Pi1.yy);
+			vec4 iz0 = vec4(Pi0.z);
+			vec4 iz1 = vec4(Pi1.z);
+
+			vec4 ixy = permute(permute(ix) + iy);
+			vec4 ixy0 = permute(ixy + iz0);
+			vec4 ixy1 = permute(ixy + iz1);
+
+			vec4 gx0 = ixy0 * (1.0 / 7.0);
+			vec4 gy0 = fract(floor(gx0) * (1.0 / 7.0)) - 0.5;
+			gx0 = fract(gx0);
+			vec4 gz0 = vec4(0.5) - abs(gx0) - abs(gy0);
+			vec4 sz0 = step(gz0, vec4(0.0));
+			gx0 -= sz0 * (step(0.0, gx0) - 0.5);
+			gy0 -= sz0 * (step(0.0, gy0) - 0.5);
+
+			vec4 gx1 = ixy1 * (1.0 / 7.0);
+			vec4 gy1 = fract(floor(gx1) * (1.0 / 7.0)) - 0.5;
+			gx1 = fract(gx1);
+			vec4 gz1 = vec4(0.5) - abs(gx1) - abs(gy1);
+			vec4 sz1 = step(gz1, vec4(0.0));
+			gx1 -= sz1 * (step(0.0, gx1) - 0.5);
+			gy1 -= sz1 * (step(0.0, gy1) - 0.5);
+
+			vec3 g000 = vec3(gx0.x, gy0.x, gz0.x);
+			vec3 g100 = vec3(gx0.y, gy0.y, gz0.y);
+			vec3 g010 = vec3(gx0.z, gy0.z, gz0.z);
+			vec3 g110 = vec3(gx0.w, gy0.w, gz0.w);
+			vec3 g001 = vec3(gx1.x, gy1.x, gz1.x);
+			vec3 g101 = vec3(gx1.y, gy1.y, gz1.y);
+			vec3 g011 = vec3(gx1.z, gy1.z, gz1.z);
+			vec3 g111 = vec3(gx1.w, gy1.w, gz1.w);
+
+			vec4 norm0 = taylorInvSqrt(vec4(dot(g000, g000), dot(g010, g010), dot(g100, g100), dot(g110, g110)));
+			g000 *= norm0.x;
+			g010 *= norm0.y;
+			g100 *= norm0.z;
+			g110 *= norm0.w;
+			vec4 norm1 = taylorInvSqrt(vec4(dot(g001, g001), dot(g011, g011), dot(g101, g101), dot(g111, g111)));
+			g001 *= norm1.x;
+			g011 *= norm1.y;
+			g101 *= norm1.z;
+			g111 *= norm1.w;
+
+			float n000 = dot(g000, Pf0);
+			float n100 = dot(g100, vec3(Pf1.x, Pf0.yz));
+			float n010 = dot(g010, vec3(Pf0.x, Pf1.y, Pf0.z));
+			float n110 = dot(g110, vec3(Pf1.xy, Pf0.z));
+			float n001 = dot(g001, vec3(Pf0.xy, Pf1.z));
+			float n101 = dot(g101, vec3(Pf1.x, Pf0.y, Pf1.z));
+			float n011 = dot(g011, vec3(Pf0.x, Pf1.yz));
+			float n111 = dot(g111, Pf1);
+
+			vec3 fade_xyz = fade(Pf0);
+			vec4 n_z = mix(vec4(n000, n100, n010, n110), vec4(n001, n101, n011, n111), fade_xyz.z);
+			vec2 n_yz = mix(n_z.xy, n_z.zw, fade_xyz.y);
+			float n_xyz = mix(n_yz.x, n_yz.y, fade_xyz.x);
+			return 2.2 * n_xyz;
+		}
+	
+
+void fragment() {
+// Input:20
+	vec4 n_out20p0 = COLOR;
+
+
+// VectorDecompose:21
+	float n_out21p0 = n_out20p0.x;
+	float n_out21p1 = n_out20p0.y;
+	float n_out21p2 = n_out20p0.z;
+	float n_out21p3 = n_out20p0.w;
+
+
+// Input:2
+	vec2 n_out2p0 = UV;
+
+
+	vec2 n_out22p0;
+// Pixelize:22
+	float n_in22p1 = 32.00000;
+	{
+		n_out22p0 = pixelate(n_out2p0.xy, n_in22p1);
+	}
+
+
+// MultiplyAdd:29
+	vec2 n_in29p1 = vec2(1.00000, 1.20000);
+	vec2 n_in29p2 = vec2(-0.00000, -0.10000);
+	vec2 n_out29p0 = fma(n_out22p0, n_in29p1, n_in29p2);
+
+
+// Distance:3
+	vec2 n_in3p1 = vec2(0.50000, 0.50000);
+	float n_out3p0 = distance(n_out29p0, n_in3p1);
+
+
+// FloatParameter:26
+	float n_out26p0 = CircleStrength;
+
+
+// FloatOp:5
+	float n_out5p0 = n_out3p0 * n_out26p0;
+
+
+// FloatFunc:4
+	float n_out4p0 = 1.0 - n_out5p0;
+
+
+// Input:6
+	float n_out6p0 = TIME;
+
+
+// FloatParameter:27
+	float n_out27p0 = FloatParameter;
+
+
+// FloatOp:7
+	float n_out7p0 = n_out6p0 / n_out27p0;
+
+
+// FloatOp:8
+	float n_out8p0 = n_out4p0 + n_out7p0;
+
+
+// FloatParameter:15
+	float n_out15p0 = NoiseMixAmount;
+
+
+// Mix:14
+	vec2 n_out14p0 = mix(n_out29p0, vec2(n_out8p0), vec2(n_out15p0));
+
+
+// Vector2Constant:10
+	vec2 n_out10p0 = vec2(0.000000, 0.000000);
+
+
+// FloatParameter:16
+	float n_out16p0 = NoiseScale;
+
+
+// FloatConstant:11
+	float n_out11p0 = 0.000000;
+
+
+	float n_out9p0;
+// PerlinNoise3D:9
+	{
+		n_out9p0 = cnoise(vec3((vec3(n_out14p0, 0.0).xy + vec3(n_out10p0, 0.0).xy) * n_out16p0, n_out11p0)) * 0.5 + 0.5;
+	}
+
+
+// FloatOp:12
+	float n_out12p0 = n_out4p0 * n_out9p0;
+
+
+	float n_out17p0;
+// Remap:17
+	float n_in17p1 = 0.00000;
+	float n_in17p2 = 1.00000;
+	float n_in17p3 = -0.40000;
+	float n_in17p4 = 2.00000;
+	{
+		float __input_range = n_in17p2 - n_in17p1;
+		float __output_range = n_in17p4 - n_in17p3;
+		n_out17p0 = n_in17p3 + __output_range * ((n_out12p0 - n_in17p1) / __input_range);
+	}
+
+
+// FloatOp:23
+	float n_in23p1 = 3.00000;
+	float n_out23p0 = n_out17p0 * n_in23p1;
+
+
+// FloatFunc:24
+	float n_out24p0 = floor(n_out23p0);
+
+
+// FloatOp:25
+	float n_in25p1 = 3.00000;
+	float n_out25p0 = n_out24p0 / n_in25p1;
+
+
+// VectorOp:19
+	vec2 n_out19p0 = vec2(n_out21p3) * vec2(n_out25p0);
+
+
+// Output:0
+	COLOR.a = n_out19p0.x;
+
+
+}
+"
+mode = 1
+flags/light_only = false
+nodes/fragment/0/position = Vector2(2140, 80)
+nodes/fragment/2/node = SubResource("VisualShaderNodeInput_a26op")
+nodes/fragment/2/position = Vector2(-5300, 20)
+nodes/fragment/3/node = SubResource("VisualShaderNodeVectorDistance_uii86")
+nodes/fragment/3/position = Vector2(-3400, -240)
+nodes/fragment/4/node = SubResource("VisualShaderNodeFloatFunc_cnepk")
+nodes/fragment/4/position = Vector2(-2600, -240)
+nodes/fragment/5/node = SubResource("VisualShaderNodeFloatOp_xhf6l")
+nodes/fragment/5/position = Vector2(-3000, -240)
+nodes/fragment/6/node = SubResource("VisualShaderNodeInput_gl8s8")
+nodes/fragment/6/position = Vector2(-3300, 500)
+nodes/fragment/7/node = SubResource("VisualShaderNodeFloatOp_m07s6")
+nodes/fragment/7/position = Vector2(-2560, 460)
+nodes/fragment/8/node = SubResource("VisualShaderNodeFloatOp_oyh0s")
+nodes/fragment/8/position = Vector2(-2100, 140)
+nodes/fragment/9/node = SubResource("VisualShaderNodeCustom_yrlgu")
+nodes/fragment/9/position = Vector2(-640, 420)
+nodes/fragment/10/node = SubResource("VisualShaderNodeVec2Constant_r4uvb")
+nodes/fragment/10/position = Vector2(-1260, 560)
+nodes/fragment/11/node = SubResource("VisualShaderNodeFloatConstant_jr1wa")
+nodes/fragment/11/position = Vector2(-1060, 1180)
+nodes/fragment/12/node = SubResource("VisualShaderNodeFloatOp_8lv5q")
+nodes/fragment/12/position = Vector2(-180, 220)
+nodes/fragment/14/node = SubResource("VisualShaderNodeMix_2duj4")
+nodes/fragment/14/position = Vector2(-1680, 680)
+nodes/fragment/15/node = SubResource("VisualShaderNodeFloatParameter_x3yun")
+nodes/fragment/15/position = Vector2(-2280, 1060)
+nodes/fragment/16/node = SubResource("VisualShaderNodeFloatParameter_8jmxx")
+nodes/fragment/16/position = Vector2(-1240, 780)
+nodes/fragment/17/node = SubResource("VisualShaderNodeRemap_gpakl")
+nodes/fragment/17/position = Vector2(220, 260)
+nodes/fragment/19/node = SubResource("VisualShaderNodeVectorOp_jv06d")
+nodes/fragment/19/position = Vector2(1740, -20)
+nodes/fragment/20/node = SubResource("VisualShaderNodeInput_dfky5")
+nodes/fragment/20/position = Vector2(680, -20)
+nodes/fragment/21/node = SubResource("VisualShaderNodeVectorDecompose_5qeuv")
+nodes/fragment/21/position = Vector2(1340, -80)
+nodes/fragment/22/node = SubResource("VisualShaderNodeCustom_ootba")
+nodes/fragment/22/position = Vector2(-4460, -20)
+nodes/fragment/23/node = SubResource("VisualShaderNodeFloatOp_lydcw")
+nodes/fragment/23/position = Vector2(620, 420)
+nodes/fragment/24/node = SubResource("VisualShaderNodeFloatFunc_fogn5")
+nodes/fragment/24/position = Vector2(1020, 460)
+nodes/fragment/25/node = SubResource("VisualShaderNodeFloatOp_g8cnj")
+nodes/fragment/25/position = Vector2(1400, 440)
+nodes/fragment/26/node = SubResource("VisualShaderNodeFloatParameter_gni3w")
+nodes/fragment/26/position = Vector2(-3900, 340)
+nodes/fragment/27/node = SubResource("VisualShaderNodeFloatParameter_mn17t")
+nodes/fragment/27/position = Vector2(-3100, 700)
+nodes/fragment/29/node = SubResource("VisualShaderNodeMultiplyAdd_17fxa")
+nodes/fragment/29/position = Vector2(-3800, -60)
+nodes/fragment/connections = PackedInt32Array(3, 0, 5, 0, 5, 0, 4, 0, 6, 0, 7, 0, 7, 0, 8, 1, 4, 0, 8, 0, 10, 0, 9, 1, 11, 0, 9, 3, 9, 0, 12, 1, 4, 0, 12, 0, 8, 0, 14, 1, 14, 0, 9, 0, 15, 0, 14, 2, 16, 0, 9, 2, 12, 0, 17, 0, 20, 0, 21, 0, 17, 0, 23, 0, 23, 0, 24, 0, 24, 0, 25, 0, 25, 0, 19, 1, 19, 0, 0, 1, 26, 0, 5, 1, 21, 3, 19, 0, 27, 0, 7, 1, 2, 0, 22, 0, 22, 0, 29, 0, 29, 0, 3, 0, 29, 0, 14, 0)

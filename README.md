@@ -1,6 +1,6 @@
 # 2d-pixel-water-shader-godot
 
-A Godot 4.2 project containing the pixel art water and water trail shaders as seen on YouTube [here](https://www.youtube.com/watch?v=pGOLstWBCDA&t=613s) and [here](https://www.youtube.com/watch?v=W4eVR_Fm5Gs)! 
+A Godot 4.4 project containing the pixel art water and water trail shaders as seen on YouTube [here](https://www.youtube.com/watch?v=pGOLstWBCDA&t=613s) and [here](https://www.youtube.com/watch?v=W4eVR_Fm5Gs)! 
 
 The shaders are Visual Shaders and there are a few simple C# scripts for the water trails. Does not include heightmap generation.
 
