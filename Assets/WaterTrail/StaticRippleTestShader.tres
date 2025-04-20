@@ -1,7 +1,7 @@
 [gd_resource type="VisualShader" load_steps=28 format=3 uid="uid://dorrua8bwtqqu"]
 
-[ext_resource type="Script" uid="uid://fx1hgwfevu" path="res://Assets/WaterTrail/VisualShaderNodePerlinNoise3D.gd" id="1_if2yf"]
-[ext_resource type="Script" uid="uid://dfefhb4yka4vs" path="res://Assets/WaterTrail/VisualShaderNodePixelize.gd" id="1_ydje6"]
+[ext_resource type="Script" uid="uid://fx1hgwfevu" path="res://Assets/CustomVisualShaderNodes/VisualShaderNodePerlinNoise3D.gd" id="1_if2yf"]
+[ext_resource type="Script" uid="uid://dfefhb4yka4vs" path="res://Assets/CustomVisualShaderNodes/VisualShaderNodePixelize.gd" id="1_ydje6"]
 
 [sub_resource type="VisualShaderNodeVec2Constant" id="VisualShaderNodeVec2Constant_r4uvb"]
 

@@ -2,7 +2,7 @@
 
 [ext_resource type="TileSet" uid="uid://b5p22y37tdyep" path="res://Assets/Water/WaterTileSet.tres" id="1_1qui1"]
 [ext_resource type="Material" uid="uid://cgjocunkt7lim" path="res://Assets/Water/WaterMaterial.tres" id="1_cf1t6"]
-[ext_resource type="Texture2D" uid="uid://dhelerfvlh47f" path="res://Assets/Grass texture.png" id="1_k7i4q"]
+[ext_resource type="Texture2D" uid="uid://dhelerfvlh47f" path="res://Assets/Images/Grass texture.png" id="1_k7i4q"]
 [ext_resource type="Script" uid="uid://cuqojdsbyy7nb" path="res://Scripts/FollowCursor.cs" id="4_qxml0"]
 [ext_resource type="Script" uid="uid://bmm8hfy7rn48c" path="res://Scripts/Trails.cs" id="5_rwrmh"]
 [ext_resource type="Material" uid="uid://tj1entgdpoef" path="res://Assets/WaterTrail/WaterTrailSpriteMaterial.tres" id="5_vykh5"]
@@ -60,10 +60,10 @@ begin_cap_mode = 2
 end_cap_mode = 2
 script = ExtResource("5_rwrmh")
 MAX_LENGTH = 20
-subViewport = NodePath("..")
-parent = NodePath("../..")
 smallestTipWidth = 0.5
 largestTipWidth = 1.0
+subViewport = NodePath("..")
+parent = NodePath("../..")
 
 [node name="Circle" type="Sprite2D" parent="WaterTrail/SubViewport"]
 position = Vector2(128, 128)

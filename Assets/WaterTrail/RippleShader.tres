@@ -1,7 +1,7 @@
 [gd_resource type="VisualShader" load_steps=36 format=3 uid="uid://3dkt385m8auv"]
 
 [ext_resource type="Texture2D" uid="uid://cbua0kq6b7f41" path="res://Assets/WaterTrail/WaterTrailGradientFaded.png" id="1_31kvp"]
-[ext_resource type="Script" uid="uid://bqna3ocisim6o" path="res://Assets/WaterTrail/VisualShaderNodePixelizeUV.gd" id="2_05jqg"]
+[ext_resource type="Script" uid="uid://bqna3ocisim6o" path="res://Assets/CustomVisualShaderNodes/VisualShaderNodePixelizeUV.gd" id="2_7ivxc"]
 
 [sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_8lv5q"]
 output_port_for_preview = 0
@@ -105,7 +105,7 @@ input_name = "texture"
 [sub_resource type="VisualShaderNodeCustom" id="VisualShaderNodeCustom_42fin"]
 default_input_values = [1, Vector2(0.05, 0.05)]
 initialized = true
-script = ExtResource("2_05jqg")
+script = ExtResource("2_7ivxc")
 
 [sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_pct5e"]
 input_name = "uv"
