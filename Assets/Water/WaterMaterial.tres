@@ -1,34 +1,83 @@
-[gd_resource type="ShaderMaterial" load_steps=5 format=3 uid="uid://cgjocunkt7lim"]
+[gd_resource type="ShaderMaterial" load_steps=14 format=3 uid="uid://cgjocunkt7lim"]
 
 [ext_resource type="Shader" uid="uid://c25wx8oihvkgw" path="res://Assets/Water/WaterShader.tres" id="1_td3tm"]
-[ext_resource type="Texture2D" uid="uid://b15stxfa0h0ie" path="res://Assets/Water/CausticTextureHighlights.png" id="2_2rte8"]
-[ext_resource type="Texture2D" uid="uid://ovc8ns3358f1" path="res://Assets/Water/CausticTexture.png" id="3_uxc34"]
-[ext_resource type="Texture2D" uid="uid://bat73uw07udlq" path="res://Assets/NoiseTextures/noiseTexture-6.png" id="4_x0elj"]
+[ext_resource type="Texture2D" uid="uid://b15stxfa0h0ie" path="res://Assets/Water/CausticTextureHighlights.png" id="2_td3tm"]
+[ext_resource type="Texture2D" uid="uid://ovc8ns3358f1" path="res://Assets/Water/CausticTexture.png" id="3_2rte8"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_61s6e"]
+frequency = 0.0191
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_td3tm"]
+noise = SubResource("FastNoiseLite_61s6e")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_td3tm"]
+frequency = 0.0021
+fractal_octaves = 3
+metadata/_preview_in_3d_space_ = true
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_2rte8"]
+generate_mipmaps = false
+seamless = true
+seamless_blend_skirt = 0.2
+normalize = false
+noise = SubResource("FastNoiseLite_td3tm")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_2rte8"]
+frequency = 0.02
+fractal_octaves = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_uxc34"]
+seamless = true
+seamless_blend_skirt = 0.2
+noise = SubResource("FastNoiseLite_2rte8")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_uxc34"]
+frequency = 0.001
+fractal_octaves = 4
+fractal_lacunarity = 4.0
+fractal_gain = 1.0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_x0elj"]
+seamless = true
+noise = SubResource("FastNoiseLite_uxc34")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_x0elj"]
+seed = 1
+frequency = 0.0012
+fractal_octaves = 4
+fractal_lacunarity = 4.0
+fractal_gain = 1.0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_8xoa5"]
+seamless = true
+noise = SubResource("FastNoiseLite_x0elj")
 
 [resource]
 shader = ExtResource("1_td3tm")
 shader_parameter/WaterColour = Color(0.372549, 0.54902, 0.768627, 0.796078)
 shader_parameter/CausticTextureScale = 0.0055
-shader_parameter/CausticMovementScale = 25.0
-shader_parameter/CausticMovementSpeed = 0.9
-shader_parameter/CausticMovementStrength = 0.035
-shader_parameter/CausticTexture = ExtResource("3_uxc34")
-shader_parameter/CausticColour = Color(0.5984, 0.88, 0.88, 0.431373)
-shader_parameter/CausticHighlightTexture = ExtResource("2_2rte8")
-shader_parameter/CausticHighlightColour = Color(1, 1, 1, 1)
-shader_parameter/NoiseScale = 0.02
-shader_parameter/NoiseModulateSpeed = 0.5
-shader_parameter/NoiseStrength = 0.5
-shader_parameter/SpecularNoiseMovementStrength = 100.0
-shader_parameter/SpecularSpeed = 4.0
-shader_parameter/SpecularScale1 = 0.07
-shader_parameter/SpecularScale2 = 0.4
-shader_parameter/SpecularThreshold = -0.5
+shader_parameter/MovementSpeed = 0.25
+shader_parameter/MovementScale = 0.05
+shader_parameter/MovementNoise = SubResource("NoiseTexture2D_2rte8")
+shader_parameter/MovementStrength = 0.03
+shader_parameter/CausticTexture = ExtResource("3_2rte8")
+shader_parameter/CausticColour = Color(0.6, 0.878431, 0.878431, 0.321569)
+shader_parameter/CausticHighlightTexture = ExtResource("2_td3tm")
+shader_parameter/CausticHighlightColour = Color(1, 1, 1, 0.792157)
+shader_parameter/RandomFadeSpeed = 0.03
+shader_parameter/RandomFadeScale = 0.001
+shader_parameter/RandomFadeNoise = SubResource("NoiseTexture2D_uxc34")
+shader_parameter/RandomFadeStrength = 0.6
+shader_parameter/SpecularScaleMoving = 0.007
+shader_parameter/SpecularSpeed = 0.03
+shader_parameter/SpecularNoiseTextureMoving1 = SubResource("NoiseTexture2D_x0elj")
+shader_parameter/SpecularNoiseTextureMoving2 = SubResource("NoiseTexture2D_8xoa5")
+shader_parameter/SpecularThreshold = 0.15
 shader_parameter/SpecularColour = Color(1, 1, 1, 0.843137)
 shader_parameter/FoamColour = Color(1, 1, 1, 1)
-shader_parameter/WaveSpeed = 5.0
-shader_parameter/FoamNoiseScale = 8e-06
-shader_parameter/FoamNoiseTexture = ExtResource("4_x0elj")
+shader_parameter/FoamWaveSpeed = 5.0
+shader_parameter/FoamNoiseScale = 8e-05
+shader_parameter/FoamNoiseTexture = SubResource("NoiseTexture2D_td3tm")
 shader_parameter/FoamNoiseAmount = 0.8
-shader_parameter/FoamFrequency = 32.0
+shader_parameter/FoamFrequency = 18.0
 shader_parameter/FoamQuantizeAmount = 3.5
